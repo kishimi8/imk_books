@@ -74,7 +74,9 @@
       <feather-icon name="chevrons-right" class="w-4 h-4" />
     </button>
   </div>
+</div>
 </template>
+<script lang="ts">
 import { defineComponent } from 'vue';
 import Sidebar from '../components/Sidebar.vue';
 import MobileHeader from '../components/MobileHeader.vue';
