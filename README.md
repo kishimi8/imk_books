@@ -7,10 +7,10 @@
 
 <h1>IMK Books</h1>
 
-**Modern Accounting Made Simple**
+**Modern Accounting Made Simple (iOS Fork)**
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/kishimi8/books)](https://github.com/kishimi8/books/releases)
-![Platforms](https://img.shields.io/badge/platform-mac%2C%20windows%2C%20linux-yellowgreen)
+![Platforms](https://img.shields.io/badge/platform-ios%2C%20mac%2C%20windows%2C%20linux-yellowgreen)
 [![Publish](https://github.com/kishimi8/books/actions/workflows/publish.yml/badge.svg)](https://github.com/kishimi8/books/actions/workflows/publish.yml)
 
 </div>
@@ -25,9 +25,26 @@
 	<a href="https://docs.kishimi8.io/books">Documentation</a>
 </div>
 
-## IMK Books
+## About
 
-IMK Books is an open-source accounting software aimed at simplifying financial management for businesses. With its clean and user-friendly interface, it streamlines accounting tasks for small and medium-sized enterprises, offering a seamless solution for modern businesses to manage their finances with ease.
+**IMK Books** is a fork of [Frappe Books](https://frappe.io/books) specifically adapted for **iOS Mobile Devices**.
+
+While retaining the core simplicity and power of the original desktop application, this fork introduces a new mobile-first data layer (using Capacitor SQLite) and responsive UI adaptations to bring modern accounting to your iPad and iPhone.
+
+> **Credit**: This project is built upon the excellent work of the [Frappe](https://frappe.io) team. We are grateful for their open-source contributions. You can find the original repository at [github.com/frappe/books](https://github.com/frappe/books).
+
+## Key Features (iOS Fork)
+
+- **Mobile Support**: Fully functional on iOS devices.
+- **Offline First**: Uses local SQLite storage on your device, ensuring data privacy and offline capability.
+- **Responsive UI**: Adapted specifically for touch interfaces and smaller screens.
+- **Core Accounting**: Retains all the powerful double-entry accounting, invoicing, and reporting features of Frappe Books.
+
+---
+
+## Original Frappe Books Description
+
+Frappe Books is an open-source accounting software aimed at simplifying financial management for businesses. With its clean and user-friendly interface, it streamlines accounting tasks for small and medium-sized enterprises, offering a seamless solution for modern businesses to manage their finances with ease.
 
 <details>
 <summary>Screenshots</summary>
@@ -42,7 +59,7 @@ IMK Books is an open-source accounting software aimed at simplifying financial m
 
 ### Motivation
 
-IMK Books addresses a market gap where small businesses face expensive, complex accounting tools. It offers an intuitive, open-source solution that combines simplicity with essential features, empowering businesses to manage finances effectively—even offline.
+Frappe Books addresses a market gap where small businesses face expensive, complex accounting tools. It offers an intuitive, open-source solution that combines simplicity with essential features, empowering businesses to manage finances effectively—even offline.
 
 ### Key Features
 
@@ -64,129 +81,51 @@ IMK Books addresses a market gap where small businesses face expensive, complex 
 
 ### Under the Hood
 
-- **Vue.js**: In IMK Books, Vue.js powers the front-end, enabling a reactive and component-based UI. It ensures seamless interactions and dynamic updates, giving users a modern, responsive experience.
+- **Vue.js**: Vue.js powers the front-end, enabling a reactive and component-based UI. It ensures seamless interactions and dynamic updates, giving users a modern, responsive experience.
 
-- **Electron**: Electron is used to package IMK Books as a standalone desktop application, allowing it to run offline and provide a native-like experience across Windows, macOS, and Linux.
+- **Electron**: Electron is used to package the desktop version application, allowing it to run offline and provide a native-like experience across Windows, macOS, and Linux.
 
-- **SQLite**: IMK Books uses SQLite as its local database. All financial data, transactions, and configurations are stored securely in an SQLite file on the user's machine.
+- **SQLite**: Local database. All financial data, transactions, and configurations are stored securely in an SQLite file on the user's machine (or device sandbox on iOS).
 
-## Production Setup
-
-### Manual
-
-Download and install the latest release for your platform from the [releases
-page](https://github.com/kishimi8/books/releases) .
-
-### Using Homebrew (for MacOS and Linux)
-
-```zsh
-brew install --cask kishimi8-books
-```
-
-### Via Flatpak (Linux)
-
-<a href='https://flathub.org/apps/io.kishimi8.books'>
-    <img width='120' alt='Get it on Flathub' src='https://flathub.org/api/badge?locale=en'/>
-</a>
-
-## Development Setup
+## Development Setup (iOS)
 
 ### Pre-requisites
 
-To get the dev environment up and running you need to first set up Node.js `v20.18.1` and npm. For this, we suggest using
-[nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-Next, you will need to install [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable).
+1. Node.js `v20+`
+2. `npm` or `yarn`
+3. Xcode (for iOS compilation)
+4. Capacitor CLI
 
 ### Clone and Run
 
-Once you are through the Pre-requisites, you can run the following commands to
-setup IMK Books for development and building:
-
 ```bash
 # clone the repository
-git clone https://github.com/kishimi8/books.git
+git clone https://github.com/kishimi8/imk_books.git
 
 # change directory
 cd books
 
 # install dependencies
 yarn
-```
 
-To run IMK Books in development mode (with hot reload, etc):
-
-```bash
-# start the electron app
+# Run desktop dev
 yarn dev
+
+# Sync Capacitor
+npx cap sync
+
+# Open in Xcode
+npx cap open ios
 ```
 
-**Note: First Boot**
+## Contributing
 
-When you run `yarn dev` electron will run immediately but the UI will take a
-couple of seconds to render this because of how dev mode works. Each file is
-individually served by the dev server. And there are many files that have to be
-sent.
+If you want to contribute to this iOS fork, please feel free to fork this repo and raise a PR.
 
-**Note: Debug Electron Main Process**
+For contributions to the core desktop logic or accounting features, please consider contributing upstream to [Frappe Books](https://github.com/frappe/books).
 
-When in dev mode electron runs with the `--inspect` flag which allows an
-external debugger to connect to port 5858. You can use chrome for this by
-visiting `chrome://inspect` while IMK Books is running in dev mode.
+---
 
-See more [here](https://www.electronjs.org/docs/latest/tutorial/debugging-main-process#external-debuggers).
+## License
 
-#### Build
-
-To build IMK Books and create an installer:
-
-```bash
-# start the electron app
-yarn build
-```
-
-**Note: Build Target**
-By default the above command will build for your computer's operating system and
-architecture. To build for other environments (example: for linux from a windows
-computer) check the _Building_ section at
-[electron.build/cli](https://www.electron.build/cli).
-
-So to build for linux you could use the `--linux` flag like so: `yarn build --linux`.
-
-## Want to Just Try Out or Contribute?
-
-If you want to contribute to IMK Books, please check our [Contribution Guidelines](https://github.com/kishimi8/books/blob/master/.github/CONTRIBUTING.md). There are many ways you can contribute even if you don't code:
-
-1. If you find any issues, no matter how small (even typos), you can [raise an issue](https://github.com/kishimi8/books/issues/new) to inform us.
-2. You can help us with language support by [contributing translations](https://github.com/kishimi8/books/wiki/Contributing-Translations).
-3. If you're an ardent user you can tell us what you would like to see.
-4. If you have accounting requirements, you can become an ardent user. 🙂
-
-If you want to contribute code then you can fork this repo, make changes and raise a PR. ([see how to](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork))
-
-## Translation Contributors
-
-| Language              | Contributors                                                                                                                                                                                                                                      |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Arabic                | [taha2002](https://github.com/taha2002), [Faridget](https://github.com/faridget), [Osama Muhammed](https://github.com/osama1998H)                                                                                                                 |
-| Catalan               | Dídac E. Jiménez                                                                                                                                                                                                                                  |
-| Chinese - Simplified  | [wcxu21](https://github.com/wcxu21), [wolone](https://github.com/wolone), [Ji Qu](https://github.com/winkidney)                                                                                                                                   |
-| Chinese - Traditional | [Ethan Deng](https://github.com/ethandengs)                                                                                                                                                                                                       |
-| Danish                | [Tummas Joensen](https://github.com/slang123)                                                                                                                                                                                                     |
-| Dutch                 | [RijckAlex](https://github.com/RijckAlex), [Stan M](https://github.com/stxm)                                                                                                                                                                      |
-| French                | [DeepL](https://www.deepl.com/), [mael-chouteau](https://github.com/mael-chouteau), [joandreux](https://github.com/joandreux)                                                                                                                     |
-| German                | [DeepL](https://www.deepl.com/), [barredterra](https://github.com/barredterra), [promexio](https://github.com/promexio), [C2H6-383](https://github.com/C2H6-383), [0xflotus](https://github.com/0xflotus), [Tim](https://github.com/Rocket-Quack) |
-| Gujarati              | [dhruvilxcode](https://github.com/dhruvilxcode), [4silvertooth](https://github.com/4silvertooth)                                                                                                                                                  |
-| Hindi                 | [bnsinghgit](https://github.com/bnsinghgit)                                                                                                                                                                                                       |
-| Indonesian            | [Aji Prakoso](https://github.com/jipraks)                                                                                                                                                                                                         |
-| Korean                | [Isaac-Kwon](https://github.com/Isaac-Kwon)                                                                                                                                                                                                       |
-| Portuguese            | [DeepL](https://www.deepl.com/), [Valdir Amaral](https://github.com/valdir-amaral)                                                                                                                                                                |
-| Spanish               | [talmax1124](https://github.com/talmax1124), [delbertf](https://github.com/delbertf), [Ignacio Chemes](https://github.com/ignaciochemes)                                                                                                          |
-| Swedish               | [papplo](https://github.com/papplo), [Crims-on](https://github.com/Crims-on)                                                                                                                                                                      |
-| Turkish               | Eyuq, [XTechnology-TR](https://github.com/XTechnology-TR)                                                                                                                                                                                         |
-
-## Learn and connect
-
-- [Telegram Group](https://t.me/kishimi8books): Used for discussions and decisions regarding everything IMK Books.
-- [GitHub Discussions](https://github.com/kishimi8/books/discussions): Used for discussions around a specific topic.
-- [Documentation](https://docs.kishimi8.io/books): Official documentation for more details.
+This project is licensed under the same terms as Frappe Books. See the [LICENSE](LICENSE) file for details.
